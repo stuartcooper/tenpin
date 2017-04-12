@@ -4,13 +4,20 @@ function Frame(bowls) {
 }
 
   Frame.prototype.totalScore = function (nextFrame, nextNextFrame) {
-    if (this._isStrike()) {
-      return this.strikeScore(nextFrame, nextNextFrame);
-    } else if (this._isSpare()) {
-      return this.spareScore(nextFrame);
-    } else {
-      return this.frameScore();
+      return this.frameScore() + this.bonusBowls(nextFrame, nextNextFrame);
+  };
+
+  Frame.prototype.bonusBowls = function (nextFrame, nextNextFrame) {
+    if (nextFrame === undefined) {
+      return 0;
     }
+    if (this._isStrike()) {
+      return nextFrame._strikeBonusBowls(nextNextFrame);
+    }
+    if (this._isSpare()) {
+      return nextFrame._spareBonusBowl();
+    }
+      return 0;
   };
 
   Frame.prototype.frameScore = function () {
@@ -19,24 +26,23 @@ function Frame(bowls) {
     });
   };
 
-  Frame.prototype.strikeScore = function (nextFrame, nextNextFrame) {
-    if (nextFrame._isStrike ()) {
-      return this.frameScore() + nextFrame.frameScore() + nextNextFrame.frameScore();
-    } else {
-      return this.frameScore() + nextFrame.frameScore();
-    }
+  Frame.prototype._isStrike = function () {
+    return this.bowls[0] == this.MAXIMUM_SCORE;
   };
 
-  Frame.prototype.spareScore = function (nextFrame) {
+  Frame.prototype._strikeBonusBowls = function (nextFrame) {
+    if (this._isStrike() && nextFrame !== undefined) {
       return this.frameScore() + nextFrame.bowls[0];
+    }
+      return this.bowls[0] + this.bowls[1];
   };
 
   Frame.prototype._isSpare = function () {
     return this.bowls[0] + this.bowls[1] == this.MAXIMUM_SCORE;
   };
 
-  Frame.prototype._isStrike = function () {
-    return this.bowls[0] == this.MAXIMUM_SCORE;
+  Frame.prototype._spareBonusBowl = function () {
+      return this.bowls[0];
   };
 
 module.exports = Frame;

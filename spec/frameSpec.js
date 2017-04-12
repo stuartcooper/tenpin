@@ -26,7 +26,7 @@ describe("Score options for a frame", function(){
     var nextFrame = new Frame([10,0]);
     var nextNextFrame = new Frame([3,3]);
     expect(frame._isStrike()).toBe(true);
-    expect(frame.totalScore(nextFrame, nextNextFrame)).toEqual(26);
+    expect(frame.totalScore(nextFrame, nextNextFrame)).toEqual(23);
   });
 
   it("calculates the score of three strike bowls", function() {

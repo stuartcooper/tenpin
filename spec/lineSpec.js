@@ -27,13 +27,12 @@ var Line = require("../script/line");
     });
 
     it('scores a spare in last frame and adds 1 bonus bowl', function(){
-      createFrames([5,5]);
-      createLastFrameSpare();
+      createFrames([5,5], [5,5,5]);
       expect(line.lineScore()).toEqual(150);
     });
 
     it('scores a strike in last frame and adds 2 bonus bowls', function(){
-      createFrames([10]);
+      createFrames([10], [10,10,10]);
       expect(line.lineScore()).toEqual(300);
     });
 
@@ -43,13 +42,5 @@ var Line = require("../script/line");
     }
     line.bowl(lastFrame || frame);
   }
-
-  function createLastFrameSpare(frame) {
-      line.bowl([5,5,5]);
-  }
-
-  function createLastFrameStrike(frame) {
-    line.bowl([10,10,10]);
-  }
-
+  
 });
