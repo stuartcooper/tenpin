@@ -6,25 +6,14 @@ function Line() {
   this.frames = [];
 }
 
-  Line.prototype.startGame = function () {
-    return this.startGame;
-  };
-
-  Line.prototype.startScore = function () {
-    return this.startScore;
-  };
-
-  Line.prototype.frames = function () {
-    return this.frames;
-  };
-
   Line.prototype.bowl = function (bowls) {
-    this.frames.push(new Frame(bowls));
+    frame = new Frame(bowls);
+    this.frames.push(frame);
   };
 
-  Line.prototype.score = function () {
-    return this.frames.reduce(function(total, frame, i, frames) {
-      return total + frame.totalScore(frames[i+1]);
+  Line.prototype.lineScore = function () {
+    return this.frames.reduce(function(score, frame, index, frames) {
+      return score + frame.totalScore(frames[index + 1], frames[index + 2]);
     }, 0);
   };
 

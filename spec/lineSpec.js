@@ -1,56 +1,55 @@
 var Line = require("../script/line");
 
-  describe('Line', function() {
+  describe('A Line of bowling', function() {
 
-  describe('Starting a line of bowling', function() {
+    var line;
+
+    beforeEach(function() {
+      line = new Line();
+    });
 
     it('Starts a line of bowling', function () {
-      var line = new Line();
       expect(line.startGame).toBe(true);
     });
 
     it('starts a line of bowling without a score', function () {
-      var line = new Line();
       expect(line.startScore).toEqual(0);
     });
 
-  describe('Bowling a "Gutter game"', function() {
-
     it('counts 10 frames of zero score', function () {
-      var line = new Line();
-      createFrames(10, [0,0]);
-      expect(line.score()).toEqual(0);
-    });
-  });
-
-  describe('Calculating multiple frames in a regular line of bowling', function(){
-
-    it('scores without bonus frames', function(){
-      createFrames(1, [3,4]);
-      createFrames(1, [2,6]);
-      expect(line.score()).toEqual(15);
+      createFrames([0,0]);
+      expect(line.lineScore()).toEqual(0);
     });
 
-    it('scores with a bonus spare frame', function(){
-      createFrames(1, [5,5]);
-      createFrames(1, [1,4]);
-      expect(line.score()).toEqual(16);
+    it('scores without bonus bowls in last frame', function(){
+      createFrames([1,1]);
+      expect(line.lineScore()).toEqual(20);
     });
 
-    it('scores with a bonus strike frame', function(){
-      createFrames(1, [10,0]);
-      createFrames(1, [1,4]);
-      expect(line.score()).toEqual(20);
+    it('scores a spare in last frame and adds 1 bonus bowl', function(){
+      createFrames([5,5]);
+      createLastFrameSpare();
+      expect(line.lineScore()).toEqual(150);
     });
-  });
 
-  var line = new Line();
+    it('scores a strike in last frame and adds 2 bonus bowls', function(){
+      createFrames([10]);
+      expect(line.lineScore()).toEqual(300);
+    });
 
   function createFrames(frame, lastFrame) {
-    for(var i = 0; i < 9; i++)
-    line.bowl(frame);
+    for(var i = 0; i < 9; i++) {
+      line.bowl(frame);
+    }
+    line.bowl(lastFrame || frame);
   }
 
-  });
+  function createLastFrameSpare(frame) {
+      line.bowl([5,5,5]);
+  }
+
+  function createLastFrameStrike(frame) {
+    line.bowl([10,10,10]);
+  }
 
 });

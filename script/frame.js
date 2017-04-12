@@ -1,5 +1,6 @@
 function Frame(bowls) {
   this.bowls = bowls;
+  this.MAXIMUM_SCORE = 10;
 }
 
   Frame.prototype.totalScore = function (nextFrame, nextNextFrame) {
@@ -13,8 +14,8 @@ function Frame(bowls) {
   };
 
   Frame.prototype.frameScore = function () {
-    return this.bowls.reduce(function (a, b) {
-      return a + b;
+    return this.bowls.reduce(function (bowlOne, bowlTwo) {
+      return bowlOne + bowlTwo;
     });
   };
 
@@ -31,11 +32,11 @@ function Frame(bowls) {
   };
 
   Frame.prototype._isSpare = function () {
-    return this.bowls[0] + this.bowls[1] === 10;
+    return this.bowls[0] + this.bowls[1] == this.MAXIMUM_SCORE;
   };
 
   Frame.prototype._isStrike = function () {
-    return this.bowls[0] === 10;
+    return this.bowls[0] == this.MAXIMUM_SCORE;
   };
 
 module.exports = Frame;

@@ -7,13 +7,6 @@ describe("Score options for a frame", function(){
     expect(frame.frameScore()).toEqual(2);
   });
 
-  xit("calculates the score in game", function() {
-    var frame = new Frame([1,1]);
-    var nextFrame = new Frame([2,2]);
-    var nextNextFrame = new Frame([3,3]);
-    expect(frame.totalScore(nextFrame, nextNextFrame)).toEqual(6);
-  });
-
   it("calculates the score of a spare bowl", function() {
     var frame = new Frame([9,1]);
     var nextFrame = new Frame([3,2]);
