@@ -1,11 +1,11 @@
-#TenPin Bowling Score Keeper
+# TenPin Bowling Score Keeper
 
-###To use:
+### To use:
 1. Fork the repo
 2. Install dependencies using `npm install`
 3. Run tests from the command line with `jasmine-node spec`
 
-###How it works
+### How it works
 This programme allows a user to keep score in a ten pin bowling game, including any bonus bowls that may be included.
 
 It consists of two main classes:
